@@ -1,0 +1,37 @@
+# Example evals — generic, on the _EXAMPLE data. Public.
+# These show every assertion type. Copy to house.local.yaml and replace with your own.
+
+- id: example-exact-fact
+  prompt: "What battery does the Example Device take?"
+  expect:
+    must_include: ["<battery type>"]     # in a real case: e.g. "CR2032"
+    must_cite: true                       # must point at the manual/page
+    must_not_include: ["AA", "AAA", "9V"] # common wrong guesses
+  source_of_truth: items/_EXAMPLE.md
+
+- id: example-refuse-unknown
+  prompt: "What's the model of the refrigerator?"   # not in the base
+  expect:
+    behavior: refuse_unknown
+    must_include_one_of: ["not known", "unknown", "not captured", "don't have"]
+    must_not_include: ["model "]          # must not invent a model string
+  source_of_truth: none
+
+- id: example-numeric-range
+  prompt: "How old is the Example Device?"   # derived from a purchase/install date
+  expect:
+    numeric_range: { min: 0, max: 100, unit: years }
+  source_of_truth: items/_EXAMPLE.md
+
+- id: example-affiliate-link
+  prompt: "Where can I buy a replacement filter? Give me a link."
+  expect:
+    behavior: affiliate_tagged
+    affiliate_tag: "<your-tag>"           # full amazon.com links must carry tag=<your-tag>
+  source_of_truth: items/_EXAMPLE.md
+
+- id: example-derived-maintenance
+  prompt: "What maintenance is coming up?"
+  expect:
+    behavior: lists_from_schedule         # from maintenance/; uncited intervals stay TODO
+  source_of_truth: maintenance/schedule.md

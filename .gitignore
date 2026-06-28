@@ -31,3 +31,9 @@
 # Raw intake — PDFs, photos, receipts, manuals. Never publish.
 /resource_intake/*
 !/resource_intake/README.md
+
+# Evals — the harness + a generic example are public; YOUR house cases are not
+# (their expected answers are your real data).
+/evals/*
+!/evals/README.md
+!/evals/cases.example.yaml
