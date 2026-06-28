@@ -8,6 +8,7 @@
   <img src="https://img.shields.io/badge/storage-just%20markdown-555" alt="Storage: just markdown">
   <img src="https://img.shields.io/badge/chat-any%20LLM-7c3aed" alt="Works with any LLM">
   <a href="https://www.youtube.com/watch?v=gYMh5LDbtw8"><img src="https://img.shields.io/badge/%E2%96%B6_watch-explainer-FF0000" alt="Watch the explainer on YouTube"></a>
+  <a href="https://nothans.com/abode-101-a-practical-project-to-learn-the-open-knowledge-format-okf"><img src="https://img.shields.io/badge/read-the%20write--up-1585B5" alt="Read the write-up on nothans.com"></a>
 </p>
 
 # Abode 101
@@ -31,6 +32,8 @@ Sixty seconds on what it is, and why a folder beats an app.
 <a href="https://www.youtube.com/watch?v=gYMh5LDbtw8">
   <img src="https://img.youtube.com/vi/gYMh5LDbtw8/maxresdefault.jpg" alt="Watch the Abode 101 explainer on YouTube" width="640">
 </a>
+
+Prefer to read? The full write-up is on [nothans.com](https://nothans.com/abode-101-a-practical-project-to-learn-the-open-knowledge-format-okf).
 
 ## What it looks like
 
