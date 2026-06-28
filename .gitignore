@@ -1,0 +1,33 @@
+# Abode 101 — the framework is public; YOUR house data is not.
+# Only templates, examples, and the playbooks are tracked. Live knowledge about a
+# real house (items, systems, schedules, logs, intake artifacts) stays local.
+
+# Owner config (your name, your Amazon Associates tag, etc.)
+/OWNER.local.md
+
+# Internal planning + local tooling (briefs, research, mirror script)
+/.meta/
+
+# Live knowledge — keep the templates, ignore the real thing
+/index.md
+/log.md
+
+/items/*
+!/items/_EXAMPLE.md
+
+/systems/*
+!/systems/_EXAMPLE.md
+
+/areas/*
+!/areas/README.md
+
+/maintenance/*
+!/maintenance/README.md
+!/maintenance/schedule.template.md
+
+/references/*
+!/references/README.md
+
+# Raw intake — PDFs, photos, receipts, manuals. Never publish.
+/resource_intake/*
+!/resource_intake/README.md
