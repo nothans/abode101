@@ -19,6 +19,32 @@ Read [`AGENTS.md`](AGENTS.md) for how an agent reads and writes this base — in
 **exact-facts & provenance model** that makes answers trustworthy, and the Amazon
 affiliate-link rule.
 
+## Background: the OKF / LLM-wiki pattern
+Abode 101 is a home-specific take on a pattern that emerged in 2026:
+
+- **Andrej Karpathy's "LLM wiki"** (April 2026) — instead of RAG over chunked documents,
+  keep a folder of Markdown the LLM itself writes and maintains (`raw/` sources, a `wiki/`
+  of generated interlinked pages, a schema file). Connections are built once at write time,
+  not re-derived per query. → [the original gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
+- **Google Cloud's Open Knowledge Format (OKF)** (v0.1, June 12 2026) — a vendor-neutral
+  spec that formalizes the pattern: a directory of UTF-8 Markdown files, each a single
+  concept with YAML frontmatter (only `type` is required; `title`/`description`/`tags`/
+  `timestamp` optional), readable by humans and any agent with no database or SDK.
+  → [OKF SPEC.md](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md)
+  · [Google Cloud blog](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing)
+
+**How Abode 101 relates.** It follows the OKF shape (one concept per file, frontmatter, an
+`index.md`, links) and Karpathy's "the AI maintains it" loop — and adds the two things the
+bare format leaves out:
+1. **The maintenance loop** (`playbooks/`) — capture, ingest from *any* source, an overnight
+   web-research pass, and reminders. OKF standardizes the *files*; the playbooks keep them *fresh*.
+2. **A provenance & trust model** (`AGENTS.md`) — every exact fact carries a source and a
+   confidence tier, so the base answers "what battery?" with a citation and **refuses to
+   guess**. Home facts have to be right.
+
+Abode 101's frontmatter is OKF-aligned (`type` + `description` + `tags`) and extends it with
+`source` and `status` for provenance. See [`docs/`](docs/) for scaffold ideas and example prompts.
+
 ## Layout
 | Path | What's in it | Tracked? |
 |---|---|---|

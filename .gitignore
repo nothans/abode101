@@ -20,6 +20,7 @@
 
 /areas/*
 !/areas/README.md
+!/areas/_EXAMPLE.md
 
 /maintenance/*
 !/maintenance/README.md
