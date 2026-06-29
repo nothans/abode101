@@ -9,9 +9,12 @@ its source and confidence (see "Exact facts & provenance" in `AGENTS.md`). Then 
 1. **Identify the resource type** (table below) and how to read it.
 2. **Read it** with the right tool.
 3. **Identify the thing(s)** it documents → find or create the `items/` / `systems/` file.
-4. **Extract facts → Specs rows.** For each exact-fact field (model, battery, filter,
-   serial, dimensions, compatibility, purchase date, price, warranty…), write a row with
-   **value · confidence · source(+locator)**. Set confidence by the resource's trust tier.
+4. **Extract facts → Specs rows.** For each exact-fact field (manufacturer, model, serial,
+   battery, filter, dimensions, compatibility, purchase date, price, warranty…), write a row
+   with **value · confidence · source(+locator)**. Set confidence by the resource's trust tier.
+   Also pull, when the source has them: the **error-code / troubleshooting table** → the item's
+   `## Error codes`; **replacement parts + part numbers** → `## Parts` (with tagged buy-links);
+   and **warranty terms** → the `Warranty` Specs row.
 5. **Keep the artifact** as a reference (leave in `resource_intake/` or move under
    `references/`) and add a `references/` index line pointing to the item.
 6. **Link, log, index** (as in `capture.md`).
@@ -21,7 +24,7 @@ its source and confidence (see "Exact facts & provenance" in `AGENTS.md`). Then 
 ## Resource types & how to handle each
 | Type | Examples | Read with | Trust tier | Pull (best-for) |
 |---|---|---|---|---|
-| Manual / spec sheet | install guide PDF, datasheet | `pdftotext -layout`, or web fetch | 1 (mfr) | model, battery, filter, dimensions, compatibility, maintenance intervals |
+| Manual / spec sheet | install guide PDF, datasheet | `pdftotext -layout`, or web fetch | 1 (mfr) | model, battery, filter, dimensions, compatibility, intervals, **error codes**, **parts** |
 | Manufacturer web page | product/support/spec page | WebFetch (record URL+date) | 1 | authoritative specs, firmware, official accessories |
 | Authorized retailer page | Home Depot, Lowe's, brand store | WebFetch | 2 | price, what's-in-box, model confirmation |
 | Marketplace listing | Amazon (esp. third-party), eBay | WebFetch / pasted text | 3 | purchase candidate, rough specs — **verify against tier 1/2** |

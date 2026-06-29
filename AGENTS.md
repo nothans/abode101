@@ -34,13 +34,17 @@ The piece Google's OKF spec dropped — the AI maintenance loop — is the whole
 type: item | system | area | maintenance | reference
 name: Human-readable name
 tags: [smart-home, lighting, ...]
+category: appliance | tool | fixture | device | system-part   # items only, optional
 description: one line — used by index.md and for relevance
 source: where this came from (manual file, URL, receipt, observation) + date
 status: active | needs-research | retired
 ---
 ```
-Body: a **Specs** table (for items — see below), then prose facts, then a `## Links`
-section of `[[slug]]` references.
+Body: a **Specs** table (for items, see below), then prose facts, then a `## Links`
+section of `[[slug]]` references. Items may also carry **`## Parts`** (replacements, part
+numbers, tagged buy-links), **`## Error codes`** (the manual's troubleshooting table, so
+"the washer is flashing F21" is answerable), and **`## History`** (a dated log of services
+and repairs, which feeds the schedule's "last done"). Add each when there's real content.
 
 ## Exact facts & provenance (the trust model)
 Some questions demand an *exact* answer ("what battery?", "what filter size?", "what
@@ -48,9 +52,9 @@ model?", "when did I buy it?"). For those, prose isn't enough — store **struct
 facts, each with its own source and confidence**, so retrieval returns one unambiguous
 value you can trust. This is the heart of the base; treat it like a chain of custody.
 
-**Exact-fact fields** (never approximate these): model / part number, serial number,
-battery type, filter size / part, bulb base & wattage, dimensions, capacity, voltage,
-compatibility, firmware/app, purchase date, price, seller, warranty term/expiry.
+**Exact-fact fields** (never approximate these): manufacturer, model / part number,
+serial number, battery type, filter size / part, bulb base & wattage, dimensions, capacity,
+voltage, compatibility, firmware/app, purchase date, price, seller, warranty term/expiry.
 
 Record each as a row in the item's **Specs** table:
 
@@ -84,7 +88,7 @@ value must be labeled as such when you answer, and `unknown` stays `TODO`.
   items + references, mapping each fact to a Specs row with source + confidence.
 - `playbooks/overnight-research.md` — the daily offline pass: research new purchases on
   the web, fill `TODO`s, propose maintenance reminders, recommend what to buy.
-- `playbooks/reminders.md` — derive maintenance/filter/battery reminders from the corpus.
+- `playbooks/reminders.md` — derive maintenance, battery, and warranty-expiry reminders from the corpus.
 
 ## Amazon links (affiliate — always)
 **Every Amazon URL shown to the owner or stored in this base must carry the owner's

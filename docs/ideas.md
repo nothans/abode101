@@ -11,8 +11,10 @@ Things that pay off the first time you're at the store or on the phone with a te
 - **Vent/register sizes** — per room, for covers → `systems/hvac.md`
 - **Life-safety** — smoke/CO/heat alarms: model + manufacture date (10-yr clock) → `systems/safety.md`
 - **Paint** — brand, color code, sheen, per room → the room's `areas/` file
-- **Model & serial** — appliances, HVAC, water heater: photograph the plate → item Specs
+- **Model & serial** — appliances, HVAC, water heater: photograph the plate → item Specs (serial matters for warranty/insurance)
 - **Warranties & receipts** — purchase date, price, seller, expiry → item Specs + `references/`
+- **Error codes** — the appliance's troubleshooting codes (washer F21, furnace lockout) → item `## Error codes`
+- **Replacement parts** — what filter/belt/bulb/battery fits, with part numbers → item `## Parts`
 - **Service contacts** — who to call, account #, last visit → on the relevant system/item
 - **Hardware specs** — garage springs (color/weight), door/lock keyways, fasteners → `systems/`
 
