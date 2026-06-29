@@ -1,7 +1,7 @@
 # Playbook: reminders
 
 **When:** on demand, and as part of the overnight pass.
-**Goal:** tell Hans what's due or coming up — maintenance (filters, batteries, seasonal),
+**Goal:** tell Hans what's due or coming up, maintenance (filters, batteries, seasonal),
 **warranties about to expire**, and life-safety whole-unit replacements.
 
 ## Steps
@@ -18,7 +18,7 @@
 ## Output shape
 - **Overdue:** … (link item)
 - **Due soon:** … (link item)
-- **Warranty expiring:** <item> — expires <date> (extend, replace, or note the serial no. for a claim)
+- **Warranty expiring:** <item>, expires <date> (extend, replace, or note the serial no. for a claim)
 - **Buy now:** replacement parts for the above, with tagged links (see `AGENTS.md`).
 
 ## Notes

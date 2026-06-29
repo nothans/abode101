@@ -17,4 +17,4 @@
 
 ## Don't
 - Don't invent specs (battery, model, filter size, intervals). Leave `TODO`, cite when filled.
-- Don't create empty area/system files speculatively — create on first real fact.
+- Don't create empty area/system files speculatively, create on first real fact.

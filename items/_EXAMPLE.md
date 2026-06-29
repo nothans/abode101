@@ -50,11 +50,11 @@ so "the washer is flashing F21" becomes answerable.
 Running log of services, repairs, and part replacements, newest first. Feeds the schedule's
 "last done".
 
-- 2026-01-01 — <what was done> (cost / who)
+- 2026-01-01, <what was done> (cost / who)
 
 ## Maintenance → [[schedule]]
-- <consumable> replacement — interval <only if cited; else TODO>.
-- Warranty expires <date> — surface as a reminder as it approaches.
+- <consumable> replacement, interval <only if cited; else TODO>.
+- Warranty expires <date>, surface as a reminder as it approaches.
 
 ## Links
 - [[related-system-or-area]]

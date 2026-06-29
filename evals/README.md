@@ -1,15 +1,15 @@
 # Evals
 
-Does the base actually answer house questions correctly — and, just as important, does it
+Does the base actually answer house questions correctly, and, just as important, does it
 **refuse to invent** what it doesn't know? These evals check both.
 
 An eval is a `prompt` plus `expect` assertions. To run them, an agent answers each prompt
-**cold** — fresh context, using only this folder per [`AGENTS.md`](../AGENTS.md) — then each
+**cold**: fresh context, using only this folder per [`AGENTS.md`](../AGENTS.md), then each
 answer is graded against the assertions. A pass means the right exact fact came back with a
 source; a fail means a wrong/missing fact, a missing citation, or (worst) a fabrication.
 
-- `cases.example.yaml` — generic examples on the `_EXAMPLE` data + every assertion type. **Public.**
-- `house.local.yaml` — your real cases (gitignored; expected answers are your house). Copy the
+- `cases.example.yaml`: generic examples on the `_EXAMPLE` data + every assertion type. **Public.**
+- `house.local.yaml`: your real cases (gitignored; expected answers are your house). Copy the
   example to start your own.
 
 ## Case format
@@ -29,11 +29,11 @@ source; a fail means a wrong/missing fact, a missing citation, or (worst) a fabr
 ```
 
 ### `behavior` vocabulary
-- `refuse_unknown` — the fact isn't in the base; the answer must say so (not known / not
+- `refuse_unknown`: the fact isn't in the base; the answer must say so (not known / not
   measured / not captured) and **must not** fabricate a value.
-- `cite_source` — the answer must point to where the fact came from.
-- `affiliate_tagged` — any Amazon link in the answer carries the owner's tag (see `AGENTS.md`).
-- `lists_from_schedule` — answer is derived from `maintenance/` and flags uncited intervals
+- `cite_source`: the answer must point to where the fact came from.
+- `affiliate_tagged`: any Amazon link in the answer carries the owner's tag (see `AGENTS.md`).
+- `lists_from_schedule`: answer is derived from `maintenance/` and flags uncited intervals
   as `TODO` rather than inventing them.
 
 ## Grading
@@ -47,12 +47,12 @@ source; a fail means a wrong/missing fact, a missing citation, or (worst) a fabr
 ## How to run (no dependencies)
 Point an agent at this folder and say: *"For each case in `evals/house.local.yaml`, answer the
 prompt cold using only this folder per AGENTS.md, then grade your answer against `expect` and
-output a pass/fail table."* Run cases in **separate fresh contexts** so the base — not chat
-memory — is what's under test. (A scripted runner can be added later; the data format is ready.)
+output a pass/fail table."* Run cases in **separate fresh contexts** so the base, not chat
+memory, is what's under test. (A scripted runner can be added later; the data format is ready.)
 
 ## What good coverage looks like
-1. **Exact-fact retrieval** — battery, model, filter size, vent size, capacity (deterministic).
-2. **Honesty on unknowns** — `refuse_unknown` cases; the anti-fabrication guardrail.
-3. **Provenance** — `must_cite` on the facts that matter.
-4. **Ranges/derived** — age from an install date, "what's due" from the schedule.
-5. **Link policy** — Amazon answers carry the affiliate tag.
+1. **Exact-fact retrieval**: battery, model, filter size, vent size, capacity (deterministic).
+2. **Honesty on unknowns**: `refuse_unknown` cases; the anti-fabrication guardrail.
+3. **Provenance**: `must_cite` on the facts that matter.
+4. **Ranges/derived**: age from an install date, "what's due" from the schedule.
+5. **Link policy**: Amazon answers carry the affiliate tag.

@@ -12,4 +12,4 @@ The ingest playbook reads each artifact, extracts citable facts into the right
 `items/`/`systems/` file (with source + confidence), keeps the artifact as a reference,
 and clears it from here.
 
-> Intake artifacts are gitignored — they're your private documents. Only this README is tracked.
+> Intake artifacts are gitignored, they're your private documents. Only this README is tracked.

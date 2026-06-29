@@ -1,7 +1,7 @@
 # Playbook: ingest (any resource → knowledge)
 
 **When:** there's something in `resource_intake/`, or Hans hands you a URL / forwards an
-email / pastes a listing. Sources are heterogeneous by design — don't assume PDF.
+email / pastes a listing. Sources are heterogeneous by design, don't assume PDF.
 **Goal:** convert any raw resource into citable facts in the right files, each fact carrying
 its source and confidence (see "Exact facts & provenance" in `AGENTS.md`). Then clear intake.
 
@@ -27,13 +27,13 @@ its source and confidence (see "Exact facts & provenance" in `AGENTS.md`). Then 
 | Manual / spec sheet | install guide PDF, datasheet | `pdftotext -layout`, or web fetch | 1 (mfr) | model, battery, filter, dimensions, compatibility, intervals, **error codes**, **parts** |
 | Manufacturer web page | product/support/spec page | WebFetch (record URL+date) | 1 | authoritative specs, firmware, official accessories |
 | Authorized retailer page | Home Depot, Lowe's, brand store | WebFetch | 2 | price, what's-in-box, model confirmation |
-| Marketplace listing | Amazon (esp. third-party), eBay | WebFetch / pasted text | 3 | purchase candidate, rough specs — **verify against tier 1/2** |
-| Receipt / order confirmation | PDF, photo, forwarded email | pdftotext / read image / read email | 2 (purchase facts) | **purchase date, price, seller, qty, model** — the facts only a receipt has |
+| Marketplace listing | Amazon (esp. third-party), eBay | WebFetch / pasted text | 3 | purchase candidate, rough specs, **verify against tier 1/2** |
+| Receipt / order confirmation | PDF, photo, forwarded email | pdftotext / read image / read email | 2 (purchase facts) | **purchase date, price, seller, qty, model**: the facts only a receipt has |
 | Photo of label/plate | model plate, serial sticker, filter end-cap | read the image | 1–2 | serial no., model, filter size printed on the part |
-| Note / observation | Hans says "the air filter is 16x25x1" | — | per Hans | facts Hans states directly; source = "Hans, observed <date>" |
+| Note / observation | Hans says "the air filter is 16x25x1" | - | per Hans | facts Hans states directly; source = "Hans, observed <date>" |
 
 Notes:
-- **Receipts and listings are the purchase-fact source** (date/price/seller) that manuals lack —
+- **Receipts and listings are the purchase-fact source** (date/price/seller) that manuals lack,
   but for *specs*, a manual/mfr page outranks a listing. Use each for what it's authoritative on.
 - A marketplace spec ("battery included: CR2032") is `reported`, not `verified`, until a tier‑1
   source confirms it. Conflicts: keep the higher tier, note the other, flag it.

@@ -1,20 +1,20 @@
-# Example prompts — how to use the base
+# Example prompts, how to use the base
 
 Point an LLM/agent at the folder (it reads `AGENTS.md` + `index.md` first), then talk to
-your house. These show the *shape* of good behavior — exact answers with a source, honest
+your house. These show the *shape* of good behavior, exact answers with a source, honest
 refusals, ranges, and tagged buy-links. (Values below are placeholders; your real base
 answers from your own files.)
 
 ## Exact-fact lookup
 > **You:** What's the battery for the entry dimmer?
-> **Base:** `<battery type>` — per the manual (`items/<dimmer>.md`, manual p.10). Cited, exact.
+> **Base:** `<battery type>`: per the manual (`items/<dimmer>.md`, manual p.10). Cited, exact.
 
 > **You:** What vent size is the office?
 > **Base:** `4×10`. [`systems/hvac.md`]
 
 ## Honest refusal (the guardrail)
 > **You:** What size is the kitchen toe-kick vent?
-> **Base:** Not recorded — it's marked `TODO` (needs measuring). I won't guess. [`systems/hvac.md`]
+> **Base:** Not recorded, it's marked `TODO` (needs measuring). I won't guess. [`systems/hvac.md`]
 
 > **You:** What's my fridge's model number?
 > **Base:** That's not captured yet. Drop a photo of the model plate in `resource_intake/`
@@ -35,7 +35,7 @@ answers from your own files.)
 
 ## Buy-link (affiliate policy)
 > **You:** Where do I buy the replacement filter?
-> **Base:** `<part>` — `<amazon link carrying the owner's affiliate tag>`. (Existing short
+> **Base:** `<part>`: `<amazon link carrying the owner's affiliate tag>`. (Existing short
 > links are preserved as-is.)
 
 ## Ingest from any source
