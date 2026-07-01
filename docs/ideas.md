@@ -32,6 +32,7 @@ Things that pay off the first time you're at the store or on the phone with a te
 - **A read-only app**: a static site over the folder: a "story" view from `log.md`, item/area
   browse, a "what's due" page, buy-links. The folder stays the source of truth; the app just renders it.
 - **Seasonal playbook**: a spring/fall checklist generated from what you own.
+- **Staleness-aware confidence**: let `verified` facts decay with age and re-verify when a fact is old or high-stakes (a purchase, a safety item). Disagreement is handled by the source tiers; time is not, yet.
 
 ## Principles to keep (don't drift)
 - One concept per file; link liberally; `index.md` is the map an agent reads first.

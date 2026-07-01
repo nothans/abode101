@@ -81,6 +81,14 @@ a note, and flag it. Never silently overwrite a `verified` fact with a lower-tie
 For an exact-fact field, only `verified`/`reported` values are answerable; an `inferred`
 value must be labeled as such when you answer, and `unknown` stays `TODO`.
 
+**Known edge: staleness & re-verification.** The tiers above handle *disagreement*, not *time*.
+A `verified` fact is not expired on a timer yet, so it stays verified until a higher-tier source
+contradicts it. That is fine for durable specs (a manual's filter size does not change) but
+weaker for perishable facts (price, firmware, anything URL-sourced, which is why web facts carry
+a retrieval date). Roadmap: confidence that decays with age, plus a re-verify trigger when a fact
+is old or about to be used for something that matters. Until then, re-run `overnight-research` on
+old `reported` / web facts rather than trusting them indefinitely.
+
 ## The loops (see `playbooks/`)
 - `playbooks/capture.md`: turn a thing Hans bought/learned/found into clean files.
 - `playbooks/ingest.md`: process `resource_intake/` (**any** resource: PDFs/manuals, web
