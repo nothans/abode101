@@ -38,6 +38,15 @@ What fits this device, with part numbers and a tagged buy-link (see the Amazon r
 |---|---|---|
 | <filter / belt / bulb / battery> | <part #> | `<amazon.com/...?tag=your-tag>` |
 
+## Stock (consumables only)
+How many are on hand, how fast they go, and when to reorder. Installing one (a `## History`
+line) decrements this; the reminders playbook derives the order reminder from it.
+
+- **On hand:** <n> as of <YYYY-MM-DD> (source: Hans / receipt / order email)
+- **Used per cycle:** <n> (e.g. one per system per change)
+- **Reorder when:** on hand, minus the next cycle's use, is less than the cycle after
+  that needs. Order task goes in [[schedule]] with a derived date, not an interval.
+
 ## Error codes
 Codes the unit can show and what they mean. Pull these from the manual's troubleshooting table
 so "the washer is flashing F21" becomes answerable.

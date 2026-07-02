@@ -43,8 +43,17 @@ status: active | needs-research | retired
 Body: a **Specs** table (for items, see below), then prose facts, then a `## Links`
 section of `[[slug]]` references. Items may also carry **`## Parts`** (replacements, part
 numbers, tagged buy-links), **`## Error codes`** (the manual's troubleshooting table, so
-"the washer is flashing F21" is answerable), and **`## History`** (a dated log of services
-and repairs, which feeds the schedule's "last done"). Add each when there's real content.
+"the washer is flashing F21" is answerable), **`## History`** (a dated log of services
+and repairs, which feeds the schedule's "last done"), and, for consumables, **`## Stock`**
+(quantity on hand with an as-of date and source, consumption per cycle, and the reorder
+rule stated as data: reorder when stock minus the next cycle's use can't cover the cycle
+after it). Add each when there's real content.
+
+**Stock is the most perishable fact in the base**, it changes every time a task is done
+and every time a box arrives. Keep it honest: a History line that installs a consumable
+also decrements its Stock, and the day-after check-in ("done, and I used 2") is the
+stock-update moment. An order task's due date is *derived* from stock and consumption,
+not periodic, see `maintenance/schedule.template.md`.
 
 ## Exact facts & provenance (the trust model)
 Some questions demand an *exact* answer ("what battery?", "what filter size?", "what
