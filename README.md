@@ -9,6 +9,7 @@
   <img src="https://img.shields.io/badge/chat-any%20LLM-7c3aed" alt="Works with any LLM">
   <a href="https://www.youtube.com/watch?v=gYMh5LDbtw8"><img src="https://img.shields.io/badge/%E2%96%B6_watch-explainer-FF0000" alt="Watch the explainer on YouTube"></a>
   <a href="https://nothans.com/abode-101-a-practical-project-to-learn-the-open-knowledge-format-okf"><img src="https://img.shields.io/badge/read-the%20write--up-1585B5" alt="Read the write-up on nothans.com"></a>
+  <a href="https://bundledex.net"><img src="https://bundledex.net/static-badge.svg" alt="OKF BundleDex"></a>
 </p>
 
 # Abode 101
