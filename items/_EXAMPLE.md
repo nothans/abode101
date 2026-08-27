@@ -4,35 +4,56 @@ name: Example Device (Model XYZ-123)
 tags: [example]
 category: appliance        # appliance | tool | fixture | device | system-part  (optional)
 description: One-line description used by index.md and for relevance ranking
-source: where this came from (manual file / URL+date / receipt / observation)
-status: active   # active | needs-research | retired
+status: stable             # stable | draft (has TODOs) | deprecated (gone, kept for history)
+generated: { by: human:owner, at: 2026-01-01T10:00:00-05:00 }
+verified:
+  - { by: human:owner, at: 2026-01-01T10:00:00-05:00 }
+stale_after: 2027-01-01T00:00:00-05:00     # earliest perishable fact below (price / buy-link)
+sources:
+  - id: manual
+    resource: resource_intake/ABC-001-manual.pdf
+    title: Example Device owner's manual (ABC-001)
+    author: Example Corp
+  - id: plate-photo
+    resource: resource_intake/xyz-123-plate.jpg
+    title: Model-plate photo
+    author: human:owner
+  - id: receipt
+    resource: resource_intake/receipt-2026-01-01.pdf
+    title: Purchase receipt
+    last_modified: 2026-01-01T00:00:00-05:00
+not:
+  - term: "XYZ-120"
+    why: "the previous generation; same look, different filter"
+    instead: "XYZ-123"
 ---
 
 # Example Device
 
 One or two sentences: what it is, where it lives, what it's for. Exact facts go in the
-Specs table; the optional sections (Parts, Error codes, History) accrue over time.
+Specs table; the optional sections (Parts, Stock, Error codes, History) accrue over time.
 (Delete this file in your own copy; it's here as a format reference.)
 
 ## Specs
 | Field | Value | Confidence | Source |
 |---|---|---|---|
-| Category | appliance | verified | observed |
-| Manufacturer | <brand> | verified | model plate |
-| Model / part no. | XYZ-123 | verified | manual ABC-001 p.1 |
-| Serial no. | <serial> | verified | model-plate photo |
-| Battery / consumable | <type/size> | verified | manual ABC-001 p.10 |
-| Compatibility | <what it works with> | verified | manual ABC-001 p.2 |
+| Category | appliance | verified | observed 2026-01-01 |
+| Manufacturer | <brand> | verified | plate-photo |
+| Model / part no. | XYZ-123 | verified | manual p.1 |
+| Serial no. | <serial> | verified | plate-photo |
+| Battery / consumable | <type/size> | verified | manual p.10 |
+| Compatibility | <what it works with> | verified | manual p.2 |
 | Location | [[some-area]] | verified | observed 2026-01-01 |
-| Purchase date / price / seller | <from a receipt> | reported | receipt 2026-01-01 |
+| Purchase date / price / seller | <from a receipt> | reported | receipt |
 | Warranty | expires 2029-01-01 (3 yr parts) | reported | receipt / mfr terms |
 
 - `Confidence`: verified · reported · inferred · unknown (see `AGENTS.md`).
-- `Source`: always include a locator (page / URL+date / receipt / "observed <date>").
+- `Source`: a `sources[].id` from the frontmatter plus a locator (page / section / "observed <date>").
 - **Serial no.** matters for warranty claims, recalls, and insurance/theft records.
 
 ## Parts (replacements & consumables)
 What fits this device, with part numbers and a tagged buy-link (see the Amazon rule in `AGENTS.md`).
+Buy-links and prices are perishable; they set the file's `stale_after`.
 
 | Part | Part no. | Where to buy |
 |---|---|---|
@@ -42,7 +63,7 @@ What fits this device, with part numbers and a tagged buy-link (see the Amazon r
 How many are on hand, how fast they go, and when to reorder. Installing one (a `## History`
 line) decrements this; the reminders playbook derives the order reminder from it.
 
-- **On hand:** <n> as of <YYYY-MM-DD> (source: Hans / receipt / order email)
+- **On hand:** <n> as of <YYYY-MM-DD> (source: owner / receipt / order email)
 - **Used per cycle:** <n> (e.g. one per system per change)
 - **Reorder when:** on hand, minus the next cycle's use, is less than the cycle after
   that needs. Order task goes in [[schedule]] with a derived date, not an interval.
@@ -53,7 +74,7 @@ so "the washer is flashing F21" becomes answerable.
 
 | Code | Meaning | Fix | Source |
 |---|---|---|---|
-| E1 | <what it means> | <what to do> | manual ABC-001 p.12 |
+| E1 | <what it means> | <what to do> | manual p.12 |
 
 ## History
 Running log of services, repairs, and part replacements, newest first. Feeds the schedule's

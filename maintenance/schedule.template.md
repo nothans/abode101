@@ -3,8 +3,12 @@ type: maintenance
 name: Maintenance schedule
 tags: [maintenance, reminders]
 description: Master list of recurring house tasks, filters, batteries, seasonal
-source: seeded from template
-status: active
+status: stable
+generated: { by: human:owner, at: 2026-01-01T10:00:00-05:00 }
+sources:
+  - id: owner
+    resource: "owner-stated dates and house rules"
+    author: human:owner
 ---
 
 # Maintenance schedule
@@ -26,3 +30,5 @@ Copy this to `schedule.md` and fill it in. `next due = last done + interval`.
 > **Order tasks** (consumables) also aren't interval tasks: the due date is derived from
 > the item's `## Stock` (on hand vs use per cycle), and moves when stock or usage changes.
 > Give the order date lead time before the cycle that would run dry.
+> The Source column cites the item's own `sources[].id` where the interval came from; the
+> schedule file's own `sources` only covers owner-set house rules.

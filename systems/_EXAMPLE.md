@@ -3,8 +3,17 @@ type: system
 name: Example System (e.g. HVAC, Lighting, Plumbing, Safety)
 tags: [example]
 description: A house system, the table shape that makes "what size / what type?" answerable
-source: observation / manuals
-status: active
+status: stable
+generated: { by: human:owner, at: 2026-01-01T10:00:00-05:00 }
+verified:
+  - { by: human:owner, at: 2026-01-01T10:00:00-05:00 }
+sources:
+  - id: observed
+    resource: "owner walkthrough, 2026-01-01"
+    author: human:owner
+  - id: manual
+    resource: resource_intake/system-manual.pdf
+    title: Installer / owner's manual
 ---
 
 # Example System

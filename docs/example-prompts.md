@@ -1,3 +1,10 @@
+---
+type: reference
+title: Example prompts
+description: How to talk to the base, the shape of good answers
+status: stable
+---
+
 # Example prompts, how to use the base
 
 Point an LLM/agent at the folder (it reads `AGENTS.md` + `index.md` first), then talk to

@@ -1,3 +1,10 @@
+---
+type: reference
+title: Scaffold ideas
+description: What to capture and where it goes
+status: stable
+---
+
 # Scaffold ideas, what to capture & where it goes
 
 Abode 101 starts minimal on purpose. Grow it as real facts arrive. This is a menu of
@@ -32,10 +39,16 @@ Things that pay off the first time you're at the store or on the phone with a te
 - **A read-only app**: a static site over the folder: a "story" view from `log.md`, item/area
   browse, a "what's due" page, buy-links. The folder stays the source of truth; the app just renders it.
 - **Seasonal playbook**: a spring/fall checklist generated from what you own.
-- **Staleness-aware confidence**: let `verified` facts decay with age and re-verify when a fact is old or high-stakes (a purchase, a safety item). Disagreement is handled by the source tiers; time is not, yet.
+- **Attested reorder math**: OKF v0.2's *Attested Computation* type (a sanctioned computation plus
+  a deterministic attester) could wrap the Stock reorder rule and the derived order date, so
+  "order filters by June" is provably derived from on-hand and use-per-cycle, not vibes.
+- ~~Staleness-aware confidence~~: done in the v0.2 pass. `stale_after` + `verified[].at` +
+  actor-tagged re-verification by the overnight loop (see "Freshness" in `AGENTS.md`).
 
 ## Principles to keep (don't drift)
 - One concept per file; link liberally; `index.md` is the map an agent reads first.
+- Stamp every write (`generated`), every check (`verified`), and every perishable fact
+  (`stale_after`). A replaced thing is deprecated, not deleted.
 - Exact facts get a **Specs row with a cited source**: never approximate (see `AGENTS.md`).
 - Don't invent intervals or specs; `TODO` is better than a confident wrong answer.
 - Match the file's shape to the question: a lookup table for "what size/type?", an item file

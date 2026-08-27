@@ -69,25 +69,31 @@ Abode 101 is a home-specific take on a pattern that emerged in 2025-2026:
 - **Andrej Karpathy's "LLM wiki"** (April 2026): instead of RAG over chunked documents,
   keep a folder of Markdown the LLM itself writes and maintains. Connections are built once at
   write time, not re-derived per query. → [the original gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
-- **Google Cloud's Open Knowledge Format (OKF)** (v0.1, June 12 2026): a vendor-neutral spec
-  that formalizes the pattern: a directory of UTF-8 Markdown files, each a single concept with
-  YAML frontmatter (only `type` required), readable by humans and any agent with no database or
-  SDK. → [OKF SPEC.md](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md)
+- **Google Cloud's Open Knowledge Format (OKF)** (v0.1 June 2026, **v0.2 August 2026**): a
+  vendor-neutral spec that formalizes the pattern: a directory of UTF-8 Markdown files, each a
+  single concept with YAML frontmatter (only `type` required), readable by humans and any agent
+  with no database or SDK. v0.2 added a trust layer: `sources`, `generated`, `verified`,
+  `status`, and `stale_after`, so "where did this come from, who checked it, is it still true"
+  are answerable from frontmatter. → [OKF SPEC.md](https://github.com/GoogleCloudPlatform/open-knowledge-format/blob/main/SPEC.md)
   · [Google Cloud blog](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing)
 
-**How Abode 101 relates.** It follows the OKF shape (one concept per file, frontmatter, an
-`index.md`, links) and Karpathy's "the AI maintains it" loop, and adds the two things the bare
-format leaves out:
+**How Abode 101 relates.** It is a conformant **OKF v0.2 bundle** (one concept per file,
+frontmatter with the trust families, `okf_version` in `index.md`, the spec's `log.md` shape)
+running Karpathy's "the AI maintains it" loop, and it adds the two things the bare format
+leaves to the producer:
 1. **The maintenance loop** ([`playbooks/`](playbooks/)): capture, ingest from *any* source
-   (manuals, receipts, photos, Amazon listings), an overnight web-research pass, and reminders.
-   OKF standardizes the *files*; the playbooks keep them *fresh*.
-2. **A provenance & trust model** ([`AGENTS.md`](AGENTS.md)): every exact fact carries a source
-   and a confidence tier, so the base answers with a citation and refuses to guess.
+   (manuals, receipts, photos, Amazon listings), an overnight web-research pass that also
+   re-verifies anything past its `stale_after`, and reminders. OKF standardizes the *files*;
+   the playbooks keep them *fresh*.
+2. **Per-fact provenance** ([`AGENTS.md`](AGENTS.md)): OKF's trust fields work per file; the
+   Specs table carries the same idea down to each exact fact (value, confidence, cited
+   `sources[].id` + locator), so the base answers with a citation and refuses to guess.
 
 ## Layout
 | Path | What's in it | Public? |
 |---|---|---|
 | [`AGENTS.md`](AGENTS.md) | The contract: how to read/write, the trust model, link rules | ✅ |
+| [`CLAUDE.md`](CLAUDE.md) | One line, `@AGENTS.md`, so Claude Code loads the same contract | ✅ |
 | [`playbooks/`](playbooks/) | capture · ingest (any source) · overnight-research · reminders | ✅ |
 | [`docs/`](docs/) | [scaffold ideas](docs/ideas.md) · [example prompts](docs/example-prompts.md) | ✅ |
 | [`evals/`](evals/) | prompt/expect cases: does it answer exactly & refuse to guess? | ✅ harness |
@@ -100,7 +106,8 @@ format leaves out:
 1. **Fork / clone**, then `cp index.template.md index.md` and `cp log.template.md log.md`.
 2. Create `OWNER.local.md` with your name and Amazon Associates tag (gitignored).
 3. Drop a manual / receipt / photo into `resource_intake/`, or just tell your agent "I bought X".
-4. Point your LLM at [`AGENTS.md`](AGENTS.md) and ask it to capture / ingest.
+4. Point your LLM at [`AGENTS.md`](AGENTS.md) and ask it to capture / ingest. Claude Code,
+   Codex, Gemini CLI, and Cursor pick it up on their own (`CLAUDE.md` imports it for Claude).
 5. Ask your house things: *"what filter does the fridge take?"*, *"what's due this month?"*
 
 See [`docs/ideas.md`](docs/ideas.md) for a capture checklist and [`docs/example-prompts.md`](docs/example-prompts.md)

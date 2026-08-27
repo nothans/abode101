@@ -15,7 +15,10 @@ and the playbooks. The house data is yours and stays local; what's shared here i
 ## Ground rules (keep the spirit)
 - **The folder is the database.** No vector store, no external DB, match retrieval to the
   file shape (see [`AGENTS.md`](AGENTS.md)).
-- **One concept per file**, frontmatter contract, `[[slug]]` links, `index.md` as the map.
+- **One concept per file**, the OKF v0.2 frontmatter contract (`status`, `generated`,
+  `verified`, `stale_after`, `sources`), `[[slug]]` links, `index.md` as the map. Keep the
+  bundle conformant: new frontmatter keys are fine (OKF preserves unknown keys), renaming
+  spec-defined ones is not.
 - **No fabricated facts.** Exact facts carry a cited source and a confidence tier; `TODO`
   beats a confident wrong answer. This is the whole point, don't weaken it.
 - **Never commit real house data.** Personal content lives in gitignored paths; only the

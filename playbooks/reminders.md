@@ -1,3 +1,11 @@
+---
+type: playbook
+title: reminders
+description: Abode 101 playbook, reminders
+status: stable
+generated: { by: human:owner, at: 2026-08-26T12:00:00-04:00 }
+---
+
 # Playbook: reminders
 
 **When:** on demand, and as part of the overnight pass.
@@ -32,4 +40,6 @@
 ## Notes
 - Only remind on intervals / expiries that have a cited source. An uncited interval is a `TODO`,
   not a reminder.
+- If the item behind a reminder is past its `stale_after`, say so in the report ("buy-link last
+  verified <date>") and queue it for `overnight-research` before the owner acts on it.
 - Later: these can fan out to real notifications / calendar; for now it's a report.

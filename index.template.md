@@ -1,3 +1,7 @@
+---
+okf_version: "0.2"
+---
+
 # Abode 101, Index
 
 The navigation layer. An agent reads this first, then follows links to only what it
@@ -16,7 +20,7 @@ needs. Copy this to `index.md` and grow it as you capture. (See [`AGENTS.md`](AG
 _add as you map rooms_
 
 ## Systems
-_add as you capture (e.g. lighting, hvac, safety)_
+_add as you capture (e.g. lighting, hvac, safety); tag each line with its `status` (`stable` / `draft`)_
 
 ## Items
 _add as you capture (one line each, linking the file)_

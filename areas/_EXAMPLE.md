@@ -3,8 +3,15 @@ type: area
 name: Example Room (e.g. Kitchen, Garage, Primary Bath)
 tags: [example, first-floor]
 description: One room/zone, what's installed here and area-specific notes
-source: observation
-status: active
+status: stable
+generated: { by: human:owner, at: 2026-01-01T10:00:00-05:00 }
+sources:
+  - id: observed
+    resource: "owner walkthrough, 2026-01-01"
+    author: human:owner
+  - id: can-label
+    resource: resource_intake/paint-can-2026-01-01.jpg
+    title: Paint can label photo
 ---
 
 # Example Room
@@ -21,8 +28,8 @@ don't pre-make empties. (Delete this example in your own copy.)
 ## Area notes
 | Fact | Value | Confidence | Source |
 |---|---|---|---|
-| Paint color / sheen | <brand + code> | reported | observed / can label |
-| Dimensions | <W×L> | reported | measured 2026-01-01 |
+| Paint color / sheen | <brand + code> | verified | can-label |
+| Dimensions | <W×L> | reported | observed, measured 2026-01-01 |
 | Flooring | <type> | reported | observed |
 
 ## Links
