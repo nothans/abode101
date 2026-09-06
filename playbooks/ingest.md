@@ -55,6 +55,40 @@ Notes:
 - Always record a **locator**: manual page, URL **+ date fetched**, receipt, or photo filename.
   No locator → not `verified`.
 
+## Filing the artifact: where it goes, what it is called, what it carries inside
+The artifact outlives the conversation that filed it, so the file itself has to say what it is.
+Three rules, applied before the log entry is written.
+
+**1. Where.** Out of `resource_intake/` and into `references/<slug>/`, the slug of the item or system it supports.
+A set that belongs together (a listing's photos, a receipt's pages, a manual plus its addendum) gets a subfolder named for the set: `references/<slug>/listing-<site>-<id>/`.
+The inbox is empty when the ingest is done.
+
+**2. Name.** The file name says what the file is, in words, not what the source called it:
+`manual-<maker>-<year>.pdf`, `install-guide-<part-no>-<yyyy-mm>.pdf`, `box-photo-<yyyy-mm-dd>.png`, `receipt-<seller>-<yyyy-mm-dd>.pdf`.
+A photo set is numbered in a sensible walk (`01-full-view.jpg`, `02-playfield-from-above.jpg`, ..., `13-backbox-boards.jpg`), two digits, then a short description, all lowercase with hyphens.
+The original name never disappears: it goes into the file's comment field and the reference doc, so a copy found elsewhere can be matched.
+Never rename the owner's original in his own folders; copy it in, and say where the original lives.
+
+**3. Embedded metadata.** Every filed artifact carries the same seven fields, written with `tools/artifact-meta/artifact_meta.py` (hans repo) so the mapping per format is consistent:
+
+| Field | What to write | JPEG | PNG | PDF | MP4 / M4A / MOV | MP3 |
+|---|---|---|---|---|---|---|
+| title | one line, what this file is (`STTNG listing photo 13: backbox boards with the RocketCPU`) | XPTitle | Title | Title | title | title |
+| description | what is in it and what it proves, one to three sentences, plain ASCII if possible | ImageDescription, UserComment | Description | Subject | description | comment |
+| subject | the thing it documents (`AprilAire 410 air filter, box label`) | XPSubject | Subject | (joined into Subject) | show | album |
+| keywords | semicolon list: the item, the maker, the kind of artifact, the notable content | XPKeywords | Keywords | Keywords | keywords | (joined into comment) |
+| author | who made the artifact: `human:hans`, the manufacturer, `seller, Pinside market ad 219928`, `<maker> via human:hans` | Artist | Author | Author | artist | artist |
+| comment | `Original file: <name>.` plus the source URL if there is one and the filing date | XPComment | Comment | (joined into Keywords) | comment | comment |
+| date | the date the artifact was made, if known, only where the file has none | DateTimeOriginal | Creation Time | CreationDate | date | date |
+
+Content is never re-encoded: EXIF is inserted, PNG chunks are added, the PDF info block is appended incrementally, audio and video are stream-copied with the tags.
+A scanned PDF with no text layer gets one first (`tools/pdf-ocr/`) so it is searchable, then its metadata.
+For an MP4 or MP3 that is itself the knowledge (a recorded walkthrough, a service call), the same seven fields apply, `subject` becomes the show or album name, and the description says who is speaking and what is covered.
+Check the result with `artifact_meta.py show <file>`; the reference doc's file table should read the same as the file's own title and description.
+
+**Then the reference doc.** One Markdown file beside the folders, `references/<slug>-<what>.md` with `type: reference` frontmatter: what the set is, how it was made usable (OCR, page map), what it proves, and a table of the files with their descriptions.
+Cite it from the item's `sources` and list it in the root `index.md` under References.
+
 ## Worked example (the shape of a good ingest)
 Drop a manual PDF into `resource_intake/` → identify the product → create
 `items/<slug>.md` → extract the exact fields (model, battery, compatibility) as Specs
