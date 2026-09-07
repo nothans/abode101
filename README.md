@@ -95,6 +95,7 @@ leaves to the producer:
 | [`AGENTS.md`](AGENTS.md) | The contract: how to read/write, the trust model, link rules | ✅ |
 | [`CLAUDE.md`](CLAUDE.md) | One line, `@AGENTS.md`, so Claude Code loads the same contract | ✅ |
 | [`playbooks/`](playbooks/) | capture · ingest (any source) · overnight-research · reminders | ✅ |
+| [`tools/`](tools/README.md) | pdf-text (read a manual, search with page numbers) · pdf-ocr (text layer for a scan) · artifact-meta (embedded metadata for filed photos, PDFs, video, audio) | ✅ |
 | [`docs/`](docs/) | [scaffold ideas](docs/ideas.md) · [example prompts](docs/example-prompts.md) | ✅ |
 | [`evals/`](evals/) | prompt/expect cases: does it answer exactly & refuse to guess? | ✅ harness |
 | `areas/` `systems/` `items/` | your house, one thing per file (`_EXAMPLE.md` shows the format) | examples |

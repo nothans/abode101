@@ -39,11 +39,11 @@ its source and confidence (see "Exact facts & provenance" in `AGENTS.md`). Then 
 ## Resource types & how to handle each
 | Type | Examples | Read with | Trust tier | Pull (best-for) |
 |---|---|---|---|---|
-| Manual / spec sheet | install guide PDF, datasheet | `pdftotext -layout`, or web fetch | 1 (mfr) | model, battery, filter, dimensions, compatibility, intervals, **error codes**, **parts** |
+| Manual / spec sheet | install guide PDF, datasheet | `tools/pdf-text/pdf_text.py` (search, dump); a scan gets `tools/pdf-ocr/` first; or web fetch | 1 (mfr) | model, battery, filter, dimensions, compatibility, intervals, **error codes**, **parts** |
 | Manufacturer web page | product/support/spec page | WebFetch (record URL+date) | 1 | authoritative specs, firmware, official accessories |
 | Authorized retailer page | Home Depot, Lowe's, brand store | WebFetch | 2 | price, what's-in-box, model confirmation |
 | Marketplace listing | Amazon (esp. third-party), eBay | WebFetch / pasted text | 3 | purchase candidate, rough specs, **verify against tier 1/2** |
-| Receipt / order confirmation | PDF, photo, forwarded email | pdftotext / read image / read email | 2 (purchase facts) | **purchase date, price, seller, qty, model**: the facts only a receipt has |
+| Receipt / order confirmation | PDF, photo, forwarded email | `tools/pdf-text/` / read image / read email | 2 (purchase facts) | **purchase date, price, seller, qty, model**: the facts only a receipt has |
 | Photo of label/plate | model plate, serial sticker, filter end-cap | read the image | 1–2 | serial no., model, filter size printed on the part |
 | Note / observation | Hans says "the air filter is 16x25x1" | - | per Hans | facts Hans states directly; source = "Hans, observed <date>" |
 
@@ -69,20 +69,20 @@ A photo set is numbered in a sensible walk (`01-full-view.jpg`, `02-playfield-fr
 The original name never disappears: it goes into the file's comment field and the reference doc, so a copy found elsewhere can be matched.
 Never rename the owner's original in his own folders; copy it in, and say where the original lives.
 
-**3. Embedded metadata.** Every filed artifact carries the same seven fields, written with `tools/artifact-meta/artifact_meta.py` (hans repo) so the mapping per format is consistent:
+**3. Embedded metadata.** Every filed artifact carries the same seven fields, written with the bundle's `tools/artifact-meta/artifact_meta.py` so the mapping per format is consistent:
 
 | Field | What to write | JPEG | PNG | PDF | MP4 / M4A / MOV | MP3 |
 |---|---|---|---|---|---|---|
-| title | one line, what this file is (`STTNG listing photo 13: backbox boards with the RocketCPU`) | XPTitle | Title | Title | title | title |
+| title | one line, what this file is (`<item> listing photo 13: backbox boards`) | XPTitle | Title | Title | title | title |
 | description | what is in it and what it proves, one to three sentences, plain ASCII if possible | ImageDescription, UserComment | Description | Subject | description | comment |
 | subject | the thing it documents (`AprilAire 410 air filter, box label`) | XPSubject | Subject | (joined into Subject) | show | album |
 | keywords | semicolon list: the item, the maker, the kind of artifact, the notable content | XPKeywords | Keywords | Keywords | keywords | (joined into comment) |
-| author | who made the artifact: `human:hans`, the manufacturer, `seller, Pinside market ad 219928`, `<maker> via human:hans` | Artist | Author | Author | artist | artist |
+| author | who made the artifact: `human:<owner>`, the manufacturer, `seller, <marketplace> ad <id>`, `<maker> via human:<owner>` | Artist | Author | Author | artist | artist |
 | comment | `Original file: <name>.` plus the source URL if there is one and the filing date | XPComment | Comment | (joined into Keywords) | comment | comment |
 | date | the date the artifact was made, if known, only where the file has none | DateTimeOriginal | Creation Time | CreationDate | date | date |
 
 Content is never re-encoded: EXIF is inserted, PNG chunks are added, the PDF info block is appended incrementally, audio and video are stream-copied with the tags.
-A scanned PDF with no text layer gets one first (`tools/pdf-ocr/`) so it is searchable, then its metadata.
+A scanned PDF with no text layer gets one first (the bundle's `tools/pdf-ocr/`) so it is searchable, then its metadata.
 For an MP4 or MP3 that is itself the knowledge (a recorded walkthrough, a service call), the same seven fields apply, `subject` becomes the show or album name, and the description says who is speaking and what is covered.
 Check the result with `artifact_meta.py show <file>`; the reference doc's file table should read the same as the file's own title and description.
 

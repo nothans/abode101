@@ -38,3 +38,6 @@
 /evals/*
 !/evals/README.md
 !/evals/cases.example.yaml
+
+# Tool scratch (OCR page renders)
+/tools/pdf-ocr/work-*/
