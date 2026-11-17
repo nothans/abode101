@@ -36,6 +36,8 @@ def has_text(doc):
 
 
 def main():
+    # PDF text and metadata carry characters the Windows console code page cannot encode.
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('action', choices=['info', 'dump', 'search'])
     ap.add_argument('file')
