@@ -6,9 +6,9 @@ This is what the ingest playbook means by "read the manual"; it replaces the `pd
 ## Use
 
 ```powershell
-python tools/pdf-text/pdf_text.py info   "references/<slug>/manual.pdf"
-python tools/pdf-text/pdf_text.py search "references/<slug>/manual.pdf" "CR2032"
-python tools/pdf-text/pdf_text.py dump   "references/<slug>/manual.pdf" --pages 10-12
+uv run tools/pdf-text/pdf_text.py info   "references/<slug>/manual.pdf"
+uv run tools/pdf-text/pdf_text.py search "references/<slug>/manual.pdf" "CR2032"
+uv run tools/pdf-text/pdf_text.py dump   "references/<slug>/manual.pdf" --pages 10-12
 ```
 
 - `info` prints the page count, the embedded metadata, and whether the file has a text layer.
@@ -20,4 +20,4 @@ Page numbers are PDF pages, 1-based. When a manual carries its own printed numbe
 
 ## Needs
 
-Python with PyMuPDF (`pip install pymupdf`).
+[uv](https://docs.astral.sh/uv/), which installs the pinned PyMuPDF from the script's header on first run.

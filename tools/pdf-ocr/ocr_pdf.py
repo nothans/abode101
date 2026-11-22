@@ -1,9 +1,15 @@
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "pymupdf==2.1",
+# ]
+# ///
 """Make a scanned PDF searchable with no installs: render pages, OCR with Windows' built-in
 engine (winocr.ps1, Windows PowerShell 5.1), and lay the words back as an invisible text layer.
 
-usage: python ocr_pdf.py <in.pdf> <out.pdf> [dpi]
+usage: uv run ocr_pdf.py <in.pdf> <out.pdf> [dpi]
 
-Needs PyMuPDF (pip install pymupdf). Scans are left untouched; only a text layer is added.
+uv installs PyMuPDF from the header above. Scans are left untouched; only a text layer is added.
 Work files (PNG renders, OCR JSON) go to ./work-<name>/ next to this script and are reused on rerun.
 """
 import json
@@ -11,7 +17,7 @@ import os
 import subprocess
 import sys
 
-import fitz  # PyMuPDF
+import pymupdf
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 src, dst = sys.argv[1], sys.argv[2]
@@ -20,7 +26,7 @@ work = os.path.join(HERE, 'work-' + os.path.splitext(os.path.basename(src))[0])
 png_dir, json_dir = os.path.join(work, 'png'), os.path.join(work, 'json')
 os.makedirs(png_dir, exist_ok=True)
 
-doc = fitz.open(src)
+doc = pymupdf.open(src)
 print('pages', len(doc))
 for i, page in enumerate(doc):
     out = os.path.join(png_dir, f'p{i:04d}.png')
@@ -50,7 +56,7 @@ for i, page in enumerate(doc):
     sx = page.rect.width / data['width']
     sy = page.rect.height / data['height']
     page.wrap_contents()  # scans often leave a page-sized cm on the CTM; bracket it so our text lands on the page
-    tw = fitz.TextWriter(page.rect)
+    tw = pymupdf.TextWriter(page.rect)
     for line in as_list(data.get('lines')):
         for w in as_list(line.get('words')):
             t = w['t']
@@ -61,10 +67,10 @@ for i, page in enumerate(doc):
             if bw <= 0 or bh <= 0:
                 continue
             fs = bh
-            tl = fitz.get_text_length(t, fontname='helv', fontsize=fs)
+            tl = pymupdf.get_text_length(t, fontname='helv', fontsize=fs)
             if tl > bw and tl > 0:
                 fs = fs * bw / tl
-            tw.append(fitz.Point(x0, y0 + bh * 0.85), t, fontsize=fs)
+            tw.append(pymupdf.Point(x0, y0 + bh * 0.85), t, fontsize=fs)
             words_total += 1
     tw.write_text(page, render_mode=3)
 doc.save(dst, garbage=3, deflate=True, deflate_images=False)

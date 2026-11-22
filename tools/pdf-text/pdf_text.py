@@ -1,19 +1,25 @@
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "pymupdf==2.1",
+# ]
+# ///
 """Read a PDF's text layer for fact extraction: dump pages, or search for a term and see where it lands.
 
 usage:
-  python pdf_text.py info   <file.pdf>                     pages, metadata, and whether a text layer exists
-  python pdf_text.py dump   <file.pdf> [--pages 3-5,12]    text of the pages (all pages by default), reading order
-  python pdf_text.py search <file.pdf> <term> [--context 80]  every hit with its page number and surrounding text
+  uv run pdf_text.py info   <file.pdf>                     pages, metadata, and whether a text layer exists
+  uv run pdf_text.py dump   <file.pdf> [--pages 3-5,12]    text of the pages (all pages by default), reading order
+  uv run pdf_text.py search <file.pdf> <term> [--context 80]  every hit with its page number and surrounding text
 
 A PDF with no text layer (a scan) prints a hint to run tools/pdf-ocr first. Page numbers are PDF pages (1-based);
 cite the printed page number from the page itself when the manual has its own numbering.
-Needs PyMuPDF (pip install pymupdf).
+uv installs PyMuPDF from the header above.
 """
 import argparse
 import re
 import sys
 
-import fitz  # PyMuPDF
+import pymupdf
 
 
 def pages_arg(spec, n):
@@ -28,6 +34,17 @@ def pages_arg(spec, n):
         else:
             out.append(int(part) - 1)
     return [p for p in out if 0 <= p < n]
+
+
+def reading_text(page):
+    """The page's text blocks top to bottom, then left to right.
+
+    PyMuPDF 2.x's get_text(sort=True) merges lines whose boxes overlap vertically and interleaves
+    their words ("FollowPhilipsRtheHueRon-screenbridge"); sorting whole blocks keeps every word intact.
+    """
+    blocks = [b for b in page.get_text('blocks') if b[6] == 0]
+    blocks.sort(key=lambda b: (round(b[1], 1), b[0]))
+    return ''.join(b[4] if b[4].endswith('\n') else b[4] + '\n' for b in blocks)
 
 
 def has_text(doc):
@@ -45,7 +62,7 @@ def main():
     ap.add_argument('--pages')
     ap.add_argument('--context', type=int, default=80)
     a = ap.parse_args()
-    doc = fitz.open(a.file)
+    doc = pymupdf.open(a.file)
     textual = has_text(doc)
     if a.action == 'info':
         print(f'pages        {len(doc)}')
@@ -59,14 +76,14 @@ def main():
     if a.action == 'dump':
         for i in pages_arg(a.pages, len(doc)):
             print(f'===== pdf page {i + 1} =====')
-            print(doc[i].get_text('text', sort=True))
+            print(reading_text(doc[i]))
         return
     if not a.term:
         sys.exit('search needs a term')
     pat = re.compile(re.escape(a.term), re.I)
     hits = 0
     for i in pages_arg(a.pages, len(doc)):
-        text = doc[i].get_text('text', sort=True)
+        text = reading_text(doc[i])
         flat = re.sub(r'\s+', ' ', text)
         for m in pat.finditer(flat):
             hits += 1

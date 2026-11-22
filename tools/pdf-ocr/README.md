@@ -7,12 +7,12 @@ The scan is left untouched, so the file looks identical and grows by roughly the
 ## Use
 
 ```powershell
-python tools/pdf-ocr/ocr_pdf.py "<in.pdf>" "<out.pdf>" [dpi]
+uv run tools/pdf-ocr/ocr_pdf.py "<in.pdf>" "<out.pdf>" [dpi]
 ```
 
 - Default render is 250 dpi. Go to 300 for small print.
 - Renders and OCR results are cached in `tools/pdf-ocr/work-<name>/` (gitignored), so a rerun only redoes the merge. Delete the folder when the PDF is done.
-- Needs Python with PyMuPDF (`pip install pymupdf`) and Windows PowerShell 5.1 (`powershell.exe`), which every Windows 11 machine has. The engine must have an English language pack, which the default install does.
+- Needs [uv](https://docs.astral.sh/uv/), which installs the pinned PyMuPDF from the script's header, and Windows PowerShell 5.1 (`powershell.exe`), which every Windows 11 machine has. The engine must have an English language pack, which the default install does.
 
 ## Files
 

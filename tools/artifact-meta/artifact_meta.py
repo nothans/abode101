@@ -1,8 +1,16 @@
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "piexif==1.1.3",
+#     "pillow==13.0.0",
+#     "pymupdf==2.1",
+# ]
+# ///
 """Show or set the embedded metadata of a knowledge-base artifact: JPEG, PNG, PDF, MP4/M4A/MOV, MP3.
 
 usage:
-  python artifact_meta.py show <file>
-  python artifact_meta.py set <file> --title "..." [--description "..."] [--subject "..."] [--keywords "a;b;c"]
+  uv run artifact_meta.py show <file>
+  uv run artifact_meta.py set <file> --title "..." [--description "..."] [--subject "..."] [--keywords "a;b;c"]
                                      [--author "..."] [--comment "..."] [--date YYYY-MM-DD] [--out <file>]
 
 One vocabulary, mapped per format:
@@ -16,8 +24,8 @@ One vocabulary, mapped per format:
   date         JPEG DateTimeOriginal (only if the file has none)  PNG Creation Time  PDF /CreationDate (if none)
 
 Pixels, pages, and streams are never re-encoded: JPEG via piexif.insert, PNG via a chunk rewrite,
-PDF via an incremental info update, audio/video via ffmpeg -c copy. Needs piexif, Pillow, PyMuPDF; ffmpeg on PATH
-or FFMPEG=<path> for MP4/MP3.
+PDF via an incremental info update, audio/video via ffmpeg -c copy. uv installs piexif, Pillow, and PyMuPDF
+from the header above; MP4/MP3 need ffmpeg on PATH or FFMPEG=<path>.
 """
 import argparse
 import os
@@ -112,8 +120,8 @@ def png_set(path, out, m):
 
 # ---------- PDF ----------
 def pdf_show(path):
-    import fitz
-    d = fitz.open(path)
+    import pymupdf
+    d = pymupdf.open(path)
     md = d.metadata
     return {'title': md.get('title') or None, 'description': md.get('subject') or None, 'subject': None,
             'keywords': md.get('keywords') or None, 'author': md.get('author') or None, 'comment': None,
@@ -121,8 +129,8 @@ def pdf_show(path):
 
 
 def pdf_set(path, out, m):
-    import fitz
-    d = fitz.open(path)
+    import pymupdf
+    d = pymupdf.open(path)
     md = d.metadata
     if m.get('title'): md['title'] = m['title']
     subj = '. '.join(x for x in [m.get('subject'), m.get('description')] if x)
@@ -134,7 +142,7 @@ def pdf_set(path, out, m):
         md['creationDate'] = 'D:' + m['date'].replace('-', '') + '000000'
     d.set_metadata(md)
     if out == path:
-        d.save(path, incremental=True, encryption=fitz.PDF_ENCRYPT_KEEP)
+        d.save(path, incremental=True, encryption=pymupdf.PDF_ENCRYPT_KEEP)
     else:
         d.save(out)
 

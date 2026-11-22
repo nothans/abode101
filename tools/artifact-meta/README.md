@@ -6,8 +6,8 @@ Part of the Abode 101 framework: the ingest playbook files every artifact under 
 ## Use
 
 ```powershell
-python tools/artifact-meta/artifact_meta.py show "<file>"
-python tools/artifact-meta/artifact_meta.py set "<file>" --title "<item> listing photo 13: backbox boards" `
+uv run tools/artifact-meta/artifact_meta.py show "<file>"
+uv run tools/artifact-meta/artifact_meta.py set "<file>" --title "<item> listing photo 13: backbox boards" `
   --description "Backbox open: the PinSound RocketCPU lower left, ..." `
   --subject "<item>, <marketplace> ad <id>, seller photo" `
   --keywords "<category>;<item>;<marketplace> listing;backbox" `
@@ -36,4 +36,4 @@ Add `--out <file>` to write a tagged copy and leave the original alone.
 
 ## Needs
 
-Python with `piexif`, `Pillow`, and `PyMuPDF` (`pip install piexif pillow pymupdf`), plus ffmpeg for audio and video.
+[uv](https://docs.astral.sh/uv/), which installs the pinned `piexif`, `Pillow`, and `PyMuPDF` from the script's header on first run, plus ffmpeg for audio and video.
